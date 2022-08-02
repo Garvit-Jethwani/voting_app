@@ -20,6 +20,6 @@ spec:
         image: myregistry.com/myapp:5c3dda6b
         ports:
         - containerPort: 80
-      imagePullPolicy: Always
+      imagePullPolicy: Never
       imagePullSecrets:
         - name: myregistry.com-registry-key
