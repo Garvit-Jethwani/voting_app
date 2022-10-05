@@ -5,7 +5,7 @@
 
 httpServicePort: &defaultServicePort 80
 tag: &defaultTag latest
-namespace: asdad-on-demand-divyesh-1732
+namespace: ballot
 clusterIP: 10.10.0.10
 clusterDomain: nip.io
 registry: &defaultRegistry local-registry:5002
