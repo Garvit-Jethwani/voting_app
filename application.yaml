@@ -1,20 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: voting-app
-  namespace: argocd
+    name: voting-app
+    namespace: codefreshnew
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/Divyeshzb/newVotingApp
-    targetRevision: HEAD
-    path: helm-vote
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: ballot
-  syncPolicy:
-    syncOptions:    
-    - CreateNamespace=true 
-    automated: 
-      prune: true
-      selfHeal: true 
+    project: default
+    source:
+        repoURL: https://github.com/Divyeshzb/newVotingApp
+        targetRevision: HEAD
+        path: helm-vote
+        helm:
+            passCredentials: false # If true then adds --pass-credentials to Helm commands to pass credentials to all domains
+            parameters:
+                - name: 'registry'
+                  value: zbio
+                - name: 'tag'
+                  value: $ARGOCD_APP_NAMESPACE
+                - name: 'namespace'
+                  value: $ARGOCD_APP_NAMESPACE
+    destination:
+        server: https://kubernetes.default.svc
+        namespace: ballot2
+    syncPolicy:
+        syncOptions:
+            - CreateNamespace=true
+        automated:
+            prune: true
+            selfHeal: true
