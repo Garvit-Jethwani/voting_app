@@ -1,0 +1,16 @@
+{
+  "appName": "sealed-secrets",
+  "userGivenName": "sealed-secrets",
+  "destNamespace": "codefreshnew",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/sealed-secrets/overlays/codefreshnew",
+  "srcRepoURL": "https://github.com/Divyeshzb/newVotingApp.git",
+  "srcTargetRevision": "",
+  "labels": {
+    "codefresh_io_entity": "component",
+    "codefresh_io_internal": "true"
+  },
+  "annotations": {
+    "argocd_argoproj_io_sync-wave": "0"
+  }
+}
