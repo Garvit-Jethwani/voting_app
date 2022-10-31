@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 // import docker from './assets/docker.png';
 import kubernates from './assets/kubernates.png';
 import './App.css';
+import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
+import * as LDClient from 'launchdarkly-js-client-sdk';
 
 const ballot_endpoint =
   process.env.REACT_APP_BALLOT_ENDPOINT ||
@@ -30,12 +32,15 @@ class Home extends Component {
       view: 1,
       showResultsButton: false,
       showNotification: false,
+      showTestFeatureButton: false,
     };
   }
 
   componentDidMount() {
     let r = Math.random().toString(36).substring(7);
     this.setState({ voter_id: r });
+    const anonymousUser = { anonymous: true };
+    const ldclient = LDClient.initialize('635f5f4e009f201200f279b3',anonymousUser);
     fetch(`http://${ec_server_endpoint}`, {
       method: 'GET',
     })
@@ -48,6 +53,12 @@ class Home extends Component {
           'ballot service is not reachable at http://' + ec_server_endpoint
         );
       });
+      ldclient.on('ready', () => {
+        const flags = ldclient.allFlags();        // get the flags
+        console.log(flags)
+        this.setState({showTestFeatureButton: flags.showTestFeatureButton})
+      });
+      console.log(this.props)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -91,6 +102,8 @@ class Home extends Component {
 
   render() {
     // console.log(this.state.candidates);
+    // const flags = useFlags()
+    // console.log(flags)
     const handleonCardClick = async (candidate) => {
       if (this.state.disabled === false) {
 				this.setState({ candidate_id: candidate.Name });
@@ -191,6 +204,11 @@ class Home extends Component {
         <div className="heading">
           How do you create a K8S cluster on your local system ?
         </div>
+        {this.state.showTestFeatureButton && (
+          <div className="showResultsButton" onClick={() => window.alert("New Feature Alert!!!!")}>
+            Test Feature Button
+          </div>
+        )}
         <div className="cardContainer">
           {this.state.candidates.map((candidate, index) => {
             return CustomCard(candidate, index);
