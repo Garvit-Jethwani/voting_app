@@ -18,6 +18,8 @@ const ec_server_endpoint =
   process.env.REACT_APP_EC_SERVER_ENDPOINT ||
   window.env.ecServerEndpoint ||
   'roost-controlplane:30081';
+const ld_client_id = process.env.REACT_APP_LD_CLIENT_ID
+window.env.ld_client_id 
 // const candidates = ['roost', 'docker', 'minikube', 'kind', 'k3d'];
 
 class Home extends Component {
@@ -40,7 +42,7 @@ class Home extends Component {
     let r = Math.random().toString(36).substring(7);
     this.setState({ voter_id: r });
     const anonymousUser = { anonymous: true };
-    const ldclient = LDClient.initialize('635f5f4e009f201200f279b3',anonymousUser);
+    const ldclient = LDClient.initialize(ld_client_id,anonymousUser);
     fetch(`http://${ec_server_endpoint}`, {
       method: 'GET',
     })
