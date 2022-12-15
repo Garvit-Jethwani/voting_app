@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   ballot:
-    image: local-registry:5002:latest
+    image: local-registry:5002/ballot:latest
     ports:
       - "30040:8080"
   voter:
