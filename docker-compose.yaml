@@ -5,7 +5,7 @@ services:
     ports:
       - "30040:8080"
   voter:
-    build: voter
+    image: local-registry:5002/voter:latest
     tty: true
     stdin_open: true
     ports: 
@@ -17,11 +17,11 @@ services:
       - ballot
       - ecserver
   ecserver:
-    build: ecserver
+    image: local-registry:5002/ecserver:latest
     ports: 
       - "30042:8081"
   election-commission:
-    build: election-commission
+    image: local-registry:5002/ec:latest
     tty: true
     stdin_open: true
     ports: 
