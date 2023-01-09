@@ -136,7 +136,7 @@ func serveRoot(w http.ResponseWriter, r *http.Request) {
 func main() {
 	log.Println("ballot is ready to store votes")
 	http.HandleFunc("/api", testFunc)
-	// http.HandleFunc("/", serveRoot)
+	http.HandleFunc("/", serveRoot)
 
 	log.Println(http.ListenAndServe(net.JoinHostPort("", port), nil))
 }
