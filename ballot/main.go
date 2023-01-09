@@ -62,6 +62,12 @@ func writeVoterResponse(w http.ResponseWriter, status Status) {
 	}
 	w.Write(resp)
 }
+func testFunc(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	out := "Hello Example"
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(out))
+}
 
 func serveRoot(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -130,5 +136,6 @@ func serveRoot(w http.ResponseWriter, r *http.Request) {
 func main() {
 	log.Println("ballot is ready to store votes")
 	http.HandleFunc("/", serveRoot)
+	http.HandleFunc("/api", testFunc)
 	log.Println(http.ListenAndServe(net.JoinHostPort("", port), nil))
 }
