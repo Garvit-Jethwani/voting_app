@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  ballot:
+    image: ballot:latest
+    ports:
+      - "30040:8080"
+  voter:
+    image: voter:latest
+    tty: true
+    stdin_open: true
+    ports: 
+      - "30041:80"
+    environment:
+      REACT_APP_BALLOT_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
+      REACT_APP_EC_SERVER_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
+    links:
+      - ballot
+      - ecserver
+  ecserver:
+    image: ecserver:latest
+    ports: 
+      - "30042:8081"
+  election-commission:
+    image: ec:latest
+    tty: true
+    stdin_open: true
+    ports: 
+      - "30043:80"
+    environment:
+      REACT_APP_EC_SERVER_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
+    links:
+      - ecserver
