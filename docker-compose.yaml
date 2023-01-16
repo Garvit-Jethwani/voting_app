@@ -1,12 +1,12 @@
 version: "3.9"
 services:
   ballot:
-    name: ballot
+    container_name: ballot
     image: zbio/ballot:latest
     ports:
       - "30040:8080"
   voter:
-    name: voter
+    container_name: voter
     image: zbio/voter:latest
     tty: true
     stdin_open: true
@@ -19,12 +19,12 @@ services:
       - ballot
       - ecserver
   ecserver:
-    name: ecserver
+    container_name: ecserver
     image: zbio/ecserver:latest
     ports: 
       - "30042:8081"
   election-commission:
-    name: ec
+    container_name: ec
     image: zbio/election-commission:latest
     tty: true
     stdin_open: true
