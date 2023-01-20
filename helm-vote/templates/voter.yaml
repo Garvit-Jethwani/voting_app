@@ -50,11 +50,6 @@ spec:
           value: "{{ .Values.namespace }}.{{ .Values.services.ballot.serviceName }}.{{ .Values.clusterIP }}.{{ .Values.clusterDomain }}"
         - name: REACT_APP_EC_SERVER_ENDPOINT
           value: "{{ .Values.namespace }}.{{ .Values.services.ecserver.serviceName }}.{{ .Values.clusterIP }}.{{ .Values.clusterDomain }}"
-        - name: REACT_APP_LD_CLIENT_ID
-          valueFrom:   
-            secretKeyRef:
-              name: dmsecret
-              key: ROOST_LD_KEY
         ports:
         - containerPort: 80
       imagePullSecrets:
