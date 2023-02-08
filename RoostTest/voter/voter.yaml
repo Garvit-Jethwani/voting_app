@@ -1,0 +1,5 @@
+
+
+it('Checks if background color is white', () => {
+  cy.get('body').should('have.css', 'background-color', 'rgb(255, 255, 255)')
+})
