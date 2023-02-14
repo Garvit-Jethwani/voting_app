@@ -7,7 +7,7 @@ services:
       - "30040:8080"
   voter:
     container_name: voter
-    image: zbio/voter:latest
+    image: voter:latest
     tty: true
     stdin_open: true
     ports: 
