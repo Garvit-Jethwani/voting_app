@@ -15,6 +15,7 @@ services:
     environment:
       REACT_APP_BALLOT_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
       REACT_APP_EC_SERVER_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
+      REACT_APP_LD_CLIENT_ID: "${ROOST_LD_KEY}"
     links:
       - ballot
       - ecserver
